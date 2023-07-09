@@ -439,6 +439,34 @@ def setTeamWinPercentages(firstYear, lastYear):
             index = index + 1
             writer.writerow(row)
 
+def setPlayerImages():
+    headshots = []
+    with open("data/small_stats_2022.csv", 'r') as input_file:
+        reader = csv.reader(input_file)
+        rows = list(reader)
+        for row in rows:
+            name = row[24]
+            dashedName = name.lower().replace(" ", "-")
+            url = f"https://www.foxsports.com/nfl/{dashedName}-player-stats"
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, "html.parser")
+            if soup.find("img", class_="image-headshot"):
+                headshot = soup.find("img", class_="image-headshot")["src"]
+            else:
+                headshot = "https://images.fantasypros.com/images/players/nfl/missing/headshot/1200x1200.png"
+            headshots.append(headshot)
+    # Write the updated data to the output CSV file
+    with open("data/playerImages.csv", 'a', newline='') as output_file:
+        writer = csv.writer(output_file)
+        with open('data/playerImages.csv', 'r') as read_file:
+            reader = csv.reader(read_file)
+            rows = list(reader)
+            for i in range(32):
+                rows[i] += [headshots[i]]
+        writer.writerows(rows)
+
+setPlayerImages()
+
 #setTeamWinPercentages(1994, 2022)
 
 # we have 29 years of stats, 1994-2022
