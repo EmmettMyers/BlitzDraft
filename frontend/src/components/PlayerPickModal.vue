@@ -1,9 +1,9 @@
 <template>
     <div 
-        v-on:click="closeModal" 
+        :style="waitForImage" v-on:click="closeModal"
         class="shadow bg-black w-screen h-screen z-20 absolute left-0 top-0 opacity-90">
     </div>
-    <div class="playerPickModal absolute z-30 mt-20">
+    <div :style="waitForImage" class="playerPickModal absolute z-30 mt-20">
         <p 
             v-on:click="closeModal" 
             class="exit text-black font-normal absolute right-5 top-0">
@@ -15,7 +15,8 @@
         </div>
         <div class="flex justify-between mt-4">
             <div class="imgHolder bg-white ml-8 flex justify-center relative">
-                <img class="absolute bottom-0" :src="player.image"/>
+                <img @load="imageLoaded" v-if="secondaryImage == ''" class="absolute bottom-0" :src="player.image"/>
+                <img @load="imageLoaded" v-else class="absolute bottom-1" :src="secondaryImage"/>
             </div>
             <div class="statHolder mr-8">
                 <div v-for="(stat, index) in player.stats" :key="stat">
@@ -29,7 +30,11 @@
             </div>
         </div>
         <div class="flex justify-center">
-            <div class="btn flex justify-center items-center font-bold mt-5">Select Player</div>
+            <div 
+                v-on:click="selectPlayer()" 
+                class="btn flex justify-center items-center font-bold mt-5">
+                    Select Player
+            </div>
         </div>
     </div>
 </template>
@@ -38,20 +43,45 @@
     import { defineComponent } from 'vue';
     import PlayerPickModalStats from './/PlayerPickModalStats.vue';
     import { statNames } from '../utils/playerStatNames';
+    import { teamNames } from '@/utils/teamNames';
+    import { postSelectedPlayer } from '@/services/selectedPlayer';
+
+    interface DataProps {
+        statNames: string[];
+        secondaryImage: string;
+        waitForImage: string;
+    }
 
     export default defineComponent({
         components: {
             PlayerPickModalStats,
         },
         props: ['player', 'team', 'primaryColor', 'secondaryColor', 'closeModal'],
-        data() {
+        data(): DataProps {
             return {
                 statNames: [""],
+                secondaryImage: "",
+                waitForImage: "display: none"
             };
+        },
+        methods: {
+            setImage(): void {
+                const abbreviation: string = teamNames[this.team];
+                this.secondaryImage = `https://static.www.nfl.com/t_person_squared_mobile_2x/f_auto/league/api/clubs/logos/${abbreviation}`
+            },
+            selectPlayer(): void {
+                postSelectedPlayer(this.player, this.team);
+            },
+            imageLoaded(): void {
+                this.waitForImage = "display: block"
+            }
         },
         mounted() {
             const pos: string = this.player.pos;
             this.statNames = statNames[pos].stats;
+            if (pos == "OL" || pos == "DEF"){
+                this.setImage();
+            }
         },
     });
 </script>

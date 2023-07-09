@@ -52,13 +52,28 @@
     import { teamNames } from '../utils/teamNames';
     import { defineComponent } from 'vue';
     import axios from 'axios';
+    import { Player } from '@/types/types';
+
+    interface DataProps {
+        teamIndex: number;
+        flipId: number;
+        teamFlips: number;
+        team: string;
+        finalTeam: string;
+        primaryColor: string;
+        secondaryColor: string;
+        image: string;
+        players: Player[],
+        modalOpen: boolean,
+        modalPlayer: Player
+    }
 
     export default defineComponent({
         components: {
             PickPlayerBox,
             PlayerPickModal,
         },
-        data() {
+        data(): DataProps {
             return {
                 teamIndex: Math.floor(Math.random() * 32),
                 flipId: 0,
@@ -68,9 +83,9 @@
                 primaryColor: "",
                 secondaryColor: "",
                 image: "",
-                players: [{pos: "", name: "", stats: ""}],
+                players: [{pos: "", name: "", stats: [], image: ""}],
                 modalOpen: false,
-                modalPlayer: {pos: "", name: "", stats: ""}
+                modalPlayer: {pos: "", name: "", stats: [], image: ""}
             };
         },
         methods: {
