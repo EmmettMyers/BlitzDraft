@@ -13,6 +13,7 @@
     import axios from 'axios';
     import MyPlayerBox from './/MyPlayerBox.vue';
     import { defineComponent } from 'vue';
+    import { myPlayers } from '@/utils/myPlayers';
 
     export default defineComponent({
         components: {
@@ -20,16 +21,7 @@
         },
         data() {
             return {
-                players: [
-                        { pos: 'QB', name: '', team: '' },
-                        { pos: 'RB', name: '', team: '' },
-                        { pos: 'WR1', name: '', team: '' },
-                        { pos: 'WR2', name: '', team: '' },
-                        { pos: 'WR3', name: '', team: '' },
-                        { pos: 'TE', name: '', team: '' },
-                        { pos: 'OL', name: '', team: '' },
-                        { pos: 'DEF', name: '', team: '' },
-                    ]
+                players: myPlayers
             };
         },
     });

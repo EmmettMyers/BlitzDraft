@@ -1,10 +1,11 @@
+import secrets
 from flask import Flask, request,jsonify
 from flask_socketio import SocketIO,emit
 from flask_cors import CORS
 from players import *
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'emmettleemyers'
+app.config['SECRET_KEY'] = secrets.token_hex(16)
 CORS(app,resources={r"/*":{"origins":"*"}})
 socketio = SocketIO(app,cors_allowed_origins="*")
 
@@ -13,20 +14,25 @@ def getPlayersRoute():
     team = request.json['team']
     return jsonify(getPlayersByTeam(team))
 
+@app.route("/selectPlayer", methods=['POST'])
+def selectPlayerRoute():
+    player = request.json['player']
+    team = request.json['team']
+    return jsonify(selectPlayer(player, team))
+
 @socketio.on("connect")
 def connected():
     print("client has connected")
-    emit("connect",{"data":f"id: {request.sid} is connected"})
 
 @socketio.on('data')
 def handle_message(data):
-    print("data from the front end: ",str(data))
-    emit("data",{'data':data,'id':request.sid},broadcast=True)
+    print("data: ", str(data))
+    players.append(data['team'])
+    emit("data", { 'team': players }, broadcast = True)
 
 @socketio.on("disconnect")
 def disconnected():
     print("user disconnected")
-    emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True,port=5001)

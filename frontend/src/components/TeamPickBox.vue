@@ -7,6 +7,7 @@
             :primaryColor="primaryColor"
             :secondaryColor="secondaryColor"  
             :closeModal="closeModal"
+            :startFlipper="startFlipper"
         />
         <div class="teamPickBox mt-2 flex justify-between">
             <div class="mt-2 ml-8">
@@ -127,13 +128,17 @@
                     this.setColors();
                     clearInterval(this.flipId);
                 }
+            },
+            async startFlipper() {
+                this.teamFlips = 0;
+                this.finalTeam = Object.keys(teamNames)[Math.floor(Math.random() * 32)];
+                await fetchTeamPlayerData(this.finalTeam);
+                this.players = teamPlayerData;
+                this.flipId = setInterval(this.flipper, 100);
             }
         },
-        async mounted() {
-            this.finalTeam = Object.keys(teamNames)[Math.floor(Math.random() * 32)];
-            await fetchTeamPlayerData(this.finalTeam);
-            this.players = teamPlayerData;
-            this.flipId = setInterval(this.flipper, 100);
+        mounted() {
+            this.startFlipper();
         },
     });
 </script>

@@ -45,6 +45,8 @@
     import { statNames } from '../utils/playerStatNames';
     import { teamNames } from '@/utils/teamNames';
     import { postSelectedPlayer } from '@/services/selectedPlayer';
+    import socket from '@/services/socket';
+    import { myPlayers, setPlayer } from '@/utils/myPlayers';
 
     interface DataProps {
         statNames: string[];
@@ -56,7 +58,7 @@
         components: {
             PlayerPickModalStats,
         },
-        props: ['player', 'team', 'primaryColor', 'secondaryColor', 'closeModal'],
+        props: ['player', 'team', 'primaryColor', 'secondaryColor', 'closeModal', 'startFlipper'],
         data(): DataProps {
             return {
                 statNames: [""],
@@ -70,7 +72,18 @@
                 this.secondaryImage = `https://static.www.nfl.com/t_person_squared_mobile_2x/f_auto/league/api/clubs/logos/${abbreviation}`
             },
             selectPlayer(): void {
-                postSelectedPlayer(this.player, this.team);
+                //postSelectedPlayer(this.player, this.team);
+                /*socket.connect();
+                socket.on('connect', () => {
+                    alert("Connected!");
+                    socket.emit('data', { team: this.team });
+                });
+                socket.on('data', (data: any) => {
+                    alert(data.team);
+                });*/
+                this.startFlipper();
+                setPlayer(this.player.pos, this.player.name, this.team);
+                this.closeModal();
             },
             imageLoaded(): void {
                 this.waitForImage = "display: block"
@@ -89,7 +102,7 @@
 <style lang="scss" scoped>
     @import "../styles/colors.scss";
     .playerPickModal {
-        width: 600px;
+        width: 550px;
         height: 425px;
         background: $solidGray;
         border-radius: 13px;
@@ -105,21 +118,26 @@
         .title {
             line-height: 50px;
             font-size: 40px;
+            width: 450px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .desc {
             font-size: 22px;
         }
         .imgHolder {
-            width: 250px;
+            width: 190px;
             height: 205px;
             border-radius: 13px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
             img {
+                border-radius: 13px;
                 height: 190px;
             }
         }
         .btn {
-            width: 535px;
+            width: 490px;
             height: 50px;
             background: $solidGreen;
             border-radius: 13px;

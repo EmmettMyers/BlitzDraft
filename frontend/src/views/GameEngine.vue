@@ -11,7 +11,6 @@
     import NavBar from '../components/NavBar.vue';
     import TeamPickBox from '../components/TeamPickBox.vue';
     import MyRosterBox from '../components/MyRosterBox.vue';
-    import io from 'socket.io-client';
 
     export default defineComponent({
         components: {
@@ -20,18 +19,6 @@
             MyRosterBox
         },
         methods: {
-            /*joinRoom() {
-                var socket = io("localhost:5001/");
-                socket.on("connect", (data: any) => {
-                    alert(data);
-                });
-            },
-            exitRoom() {
-                var socket = io("localhost:5001/");
-                socket.on("disconnect", (data: any) => {
-                    alert(data);
-                });
-            },*/
         }
     });
 </script>

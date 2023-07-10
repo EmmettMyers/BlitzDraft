@@ -3,7 +3,7 @@
         <div :style="{background: primaryColor}" class="statName flex justify-center items-center font-semibold">
             <p>{{ statName }}</p>
         </div>
-        <div :style="{background: secondaryColor}" class="statNum flex justify-center items-center font-extrabold">
+        <div class="bg-white statNum flex justify-center items-center font-extrabold">
             <p :style="{color: primaryColor}">{{ stat }}</p>
         </div>
     </div>
