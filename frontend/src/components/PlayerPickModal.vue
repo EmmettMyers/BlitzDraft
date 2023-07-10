@@ -47,6 +47,7 @@
     import { postSelectedPlayer } from '@/services/selectedPlayer';
     import socket from '@/services/socket';
     import { myPlayers, setPlayer } from '@/utils/myPlayers';
+    import { setImage } from '@/utils/teamSetters';
 
     interface DataProps {
         statNames: string[];
@@ -67,10 +68,6 @@
             };
         },
         methods: {
-            setImage(): void {
-                const abbreviation: string = teamNames[this.team];
-                this.secondaryImage = `https://static.www.nfl.com/t_person_squared_mobile_2x/f_auto/league/api/clubs/logos/${abbreviation}`
-            },
             selectPlayer(): void {
                 //postSelectedPlayer(this.player, this.team);
                 /*socket.connect();
@@ -93,7 +90,7 @@
             const pos: string = this.player.pos;
             this.statNames = statNames[pos].stats;
             if (pos == "OL" || pos == "DEF"){
-                this.setImage();
+                this.secondaryImage = setImage(this.team);
             }
         },
     });

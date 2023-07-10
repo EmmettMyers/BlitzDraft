@@ -26,9 +26,12 @@
                         <img :src="image" />
                     </div>
                 </div>
-                <div v-if="teamFlips == 32" class="timer mt-2 flex justify-center">
-                    <div :style="{background: primaryColor}" class="done"></div>
-                    <div :style="{background: secondaryColor}" class="not-done"></div>
+                <div v-if="teamFlips == 32">
+                    <GameTimer
+                        :primaryColor="primaryColor"
+                        :secondaryColor="secondaryColor"  
+                        :timeDone="timeDone"
+                    />
                 </div>
             </div>
             <div v-if="teamFlips == 32" class="mt-3 mr-4">
@@ -47,6 +50,7 @@
   
 <script lang="ts">
     import PickPlayerBox from './/PickPlayerBox.vue';
+    import GameTimer from './/GameTimer.vue';
     import PlayerPickModal from './/PlayerPickModal.vue';
     import { teamColors } from '../styles/team_colors';
     import { fetchTeamPlayerData, teamPlayerData } from '../services/teamFetch';
@@ -54,6 +58,8 @@
     import { defineComponent } from 'vue';
     import axios from 'axios';
     import { Player } from '@/types/types';
+    import { setImage, setColor } from '@/utils/teamSetters';
+import { myPlayers, setPlayer } from '@/utils/myPlayers';
 
     interface DataProps {
         teamIndex: number;
@@ -73,6 +79,7 @@
         components: {
             PickPlayerBox,
             PlayerPickModal,
+            GameTimer
         },
         data(): DataProps {
             return {
@@ -90,6 +97,20 @@
             };
         },
         methods: {
+            timeDone(color: string): void {
+                if (this.primaryColor == color){
+                    let filled = false;
+                    while (!filled){
+                        const randPlayer: Player = this.players[Math.floor(Math.random() * 8)];
+                        const player = myPlayers.value.find((player) => player.pos === randPlayer.pos);
+                        if (!(!!player && player.name !== '')){
+                            setPlayer(randPlayer.pos, randPlayer.name, this.team);
+                            filled = true;
+                        }
+                    }
+                    this.startFlipper();
+                }
+            },
             openModal(player: any): void {
                 this.modalPlayer = player;
                 this.modalOpen = true;
@@ -97,25 +118,11 @@
             closeModal(): void {
                 this.modalOpen = false;
             },
-            setColors(): void {
-                const fullTeam: string[] = this.team.split(' ');
-                var mascot = "";
-                if (this.team == "San Francisco 49ers"){
-                    mascot = "fortyniners";
-                } else {
-                    mascot = fullTeam[fullTeam.length - 1].toLowerCase();
-                }
-                this.primaryColor = teamColors[mascot].primaryColor;
-                this.secondaryColor = teamColors[mascot].secondaryColor;
-            },
-            setImage(): void {
-                const abbreviation = teamNames[this.team];
-                this.image = `https://static.www.nfl.com/t_person_squared_mobile_2x/f_auto/league/api/clubs/logos/${abbreviation}`
-            },
             flipper(): void {
                 this.team = Object.keys(teamNames)[this.teamIndex];
-                this.setImage();
-                this.setColors();
+                this.image = setImage(this.team);
+                this.primaryColor = setColor("primary", this.team);
+                this.secondaryColor = setColor("secondary", this.team);
                 if (this.teamIndex == 31){
                     this.teamIndex = 0;
                 } else {
@@ -124,8 +131,9 @@
                 this.teamFlips += 1;
                 if (this.teamFlips == 32){
                     this.team = this.finalTeam;
-                    this.setImage();
-                    this.setColors();
+                    this.image = setImage(this.team);
+                    this.primaryColor = setColor("primary", this.team);
+                    this.secondaryColor = setColor("secondary", this.team);
                     clearInterval(this.flipId);
                 }
             },
@@ -165,21 +173,6 @@
             }
             img {
                 height: 120px;
-            }
-        }
-        .timer {
-            height: 20px;
-            .done {
-                width: 90px;
-                border-radius: 13px 0 0 13px;
-                background: white;
-                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-            }
-            .not-done {
-                width: 120px;
-                border-radius: 0 13px 13px 0;
-                background: white;
-                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
             }
         }
     }
