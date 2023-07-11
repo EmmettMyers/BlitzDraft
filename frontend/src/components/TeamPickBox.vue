@@ -31,6 +31,7 @@
                         :primaryColor="primaryColor"
                         :secondaryColor="secondaryColor"  
                         :timeDone="timeDone"
+                        :selectIndex="selectIndex"
                     />
                 </div>
             </div>
@@ -62,6 +63,7 @@
 import { myPlayers, setPlayer } from '@/utils/myPlayers';
 
     interface DataProps {
+        selectIndex: number;
         teamIndex: number;
         flipId: number;
         teamFlips: number;
@@ -83,6 +85,7 @@ import { myPlayers, setPlayer } from '@/utils/myPlayers';
         },
         data(): DataProps {
             return {
+                selectIndex: 0,
                 teamIndex: Math.floor(Math.random() * 32),
                 flipId: 0,
                 teamFlips: 0,
@@ -97,14 +100,14 @@ import { myPlayers, setPlayer } from '@/utils/myPlayers';
             };
         },
         methods: {
-            timeDone(color: string): void {
-                if (this.primaryColor == color){
+            timeDone(index: number): void {
+                if (this.selectIndex == index){
                     let filled = false;
                     while (!filled){
                         const randPlayer: Player = this.players[Math.floor(Math.random() * 8)];
                         const player = myPlayers.value.find((player) => player.pos === randPlayer.pos);
                         if (!(!!player && player.name !== '')){
-                            setPlayer(randPlayer.pos, randPlayer.name, this.team);
+                            setPlayer(randPlayer.pos, randPlayer.name, this.team, randPlayer.stats);
                             filled = true;
                         }
                     }
@@ -138,6 +141,7 @@ import { myPlayers, setPlayer } from '@/utils/myPlayers';
                 }
             },
             async startFlipper() {
+                this.selectIndex += 1;
                 this.teamFlips = 0;
                 this.finalTeam = Object.keys(teamNames)[Math.floor(Math.random() * 32)];
                 await fetchTeamPlayerData(this.finalTeam);

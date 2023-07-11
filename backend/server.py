@@ -3,6 +3,7 @@ from flask import Flask, request,jsonify
 from flask_socketio import SocketIO,emit
 from flask_cors import CORS
 from players import *
+from model import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex(16)
@@ -14,11 +15,10 @@ def getPlayersRoute():
     team = request.json['team']
     return jsonify(getPlayersByTeam(team))
 
-@app.route("/selectPlayer", methods=['POST'])
-def selectPlayerRoute():
-    player = request.json['player']
-    team = request.json['team']
-    return jsonify(selectPlayer(player, team))
+@app.route("/gradeTeam", methods=['POST'])
+def gradeTeamRoute():
+    stats = request.json['stats']
+    return jsonify(gradeTeam(stats))
 
 @socketio.on("connect")
 def connected():

@@ -1,5 +1,5 @@
 <template>
-    <div class="playerPickModalStats flex justify-center mt-2">
+    <div v-if="showStat" class="playerPickModalStats flex justify-center mt-2">
         <div :style="{background: primaryColor}" class="statName flex justify-center items-center font-semibold">
             <p>{{ statName }}</p>
         </div>
@@ -13,7 +13,21 @@
     import { defineComponent } from 'vue';
 
     export default defineComponent({
-        props: ['stat', 'statName', 'primaryColor', 'secondaryColor'],
+        props: ['pos', 'index', 'stat', 'statName', 'primaryColor', 'secondaryColor'],
+        data() {
+            return {
+                showStat: true
+            };
+        },
+        mounted() {
+            if (this.pos == 'QB' && this.index == 0){
+                this.showStat = false;
+            } else if (this.pos == 'RB' && this.index == 3){
+                this.showStat = false;
+            } else if (this.pos == 'DEF' && this.index == 1){
+                this.showStat = false;
+            }
+        }
     });
 </script>
 

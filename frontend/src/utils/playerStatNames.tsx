@@ -6,10 +6,10 @@ type Stats = {
   
 export const statNames: Stats = {
     QB: {
-        stats: ["Pass Yds", "Pass TD", "Int"],
+        stats: ["Comp%", "Pass Yds", "Pass TD", "Int"],
     },
     RB: {
-        stats: ["Rush Yds", "Rush TD", "Yds/rush"],
+        stats: ["Rush Yds", "Rush TD", "Yds/rush", "Fumbles"],
     },
     WR1: {
         stats: ["Ctch%", "Rec Yds", "Rec TD"],
@@ -27,6 +27,6 @@ export const statNames: Stats = {
         stats: ["QB Sacks", "Sacks/g", "Yds/rush"],
     },
     DEF: {
-        stats: ["Sacks", "Yds/play", "Turnover%"],
+        stats: ["Sacks", "Points", "Yds/play", "Turnover%"],
     },
 };

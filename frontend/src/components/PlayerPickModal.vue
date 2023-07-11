@@ -21,6 +21,8 @@
             <div class="statHolder mr-8">
                 <div v-for="(stat, index) in player.stats" :key="stat">
                     <PlayerPickModalStats 
+                        :pos="player.pos"
+                        :index="index"
                         :stat="stat"
                         :statName="statNames[index]"
                         :primaryColor="primaryColor"
@@ -79,7 +81,7 @@
                     alert(data.team);
                 });*/
                 this.startFlipper();
-                setPlayer(this.player.pos, this.player.name, this.team);
+                setPlayer(this.player.pos, this.player.name, this.team, this.player.stats);
                 this.closeModal();
             },
             imageLoaded(): void {

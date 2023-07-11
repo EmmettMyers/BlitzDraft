@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center w-screen pb-4">
-        <div class="myRosterBox">
-            <p class="myRosterTxt pt-2">My Roster</p>
+        <div class="myRosterBox" :style="{width: width}">
+            <p v-if="showTxt" class="myRosterTxt pt-2 pl-2">My Roster</p>
             <div v-for="player in players" :key="player.name">
                 <MyPlayerBox :player="player" />
             </div>
@@ -19,6 +19,7 @@
         components: {
             MyPlayerBox,
         },
+        props: ['showTxt', 'width'],
         data() {
             return {
                 players: myPlayers
@@ -30,7 +31,6 @@
 <style lang="scss" scoped>
     @import "../styles/colors.scss";
     .myRosterBox {
-        width: 600px;
         .myRosterTxt {
             font-size: 30px;
         }

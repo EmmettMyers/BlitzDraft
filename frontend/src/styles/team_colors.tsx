@@ -37,7 +37,7 @@ export const teamColors: TeamColors = {
     bengals: {
         primaryColor: "#000000",
         secondaryColor: "#e3420b",
-        uniqueColor: "#634937"
+        uniqueColor: "#c93908"
     },
     browns: {
         primaryColor: "#22150C",

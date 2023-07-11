@@ -9,7 +9,7 @@
     import { defineComponent } from 'vue';
 
     export default defineComponent({
-        props: ['primaryColor', 'secondaryColor', 'timeDone'],
+        props: ['primaryColor', 'secondaryColor', 'timeDone', 'selectIndex'],
         data() {
             return {
                 doneWidth: 1,
@@ -22,7 +22,7 @@
                 this.notDoneWidth -= 0.05;
                 if (this.notDoneWidth < 0.05){
                     clearInterval(intervalId);
-                    this.timeDone(this.primaryColor);
+                    this.timeDone(this.selectIndex);
                 }
             }, 3);
         },
