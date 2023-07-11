@@ -1,12 +1,12 @@
 <template>
-    <div class="w-screen h-screen">
-        <NavBar />
+    <div :style="waitForImage" class="w-screen h-screen">
+        <NavBar :setPage="setPage" />
         <GameCountdown v-if="!fullTeam && !countDone" :countdownComplete="countdownComplete" />
         <TeamPickBox v-if="!fullTeam && countDone" />
         <MyRosterBox v-if="!fullTeam && countDone" showTxt="true" width="600px" />
-        <EndGame v-if="fullTeam" />
+        <EndGame v-if="fullTeam" :gameDone="gameDone" />
         <div class="imgContainer absolute top-0 left-0">
-            <img class="absolute" src="../assets/lucasOil.jpg" />
+            <img @load="imageLoaded" class="absolute" src="../assets/lucasOil.jpg" />
         </div>
     </div>
 </template>
@@ -18,9 +18,10 @@
     import MyRosterBox from '../components/MyRosterBox.vue';
     import GameCountdown from '../components/GameCountdown.vue';
     import EndGame from '../components/EndGame.vue';
-    import { playersFilled } from '@/utils/myPlayers';
+    import { emptyMyPlayers, playersFilled } from '@/utils/myPlayers';
 
     export default defineComponent({
+        props: ['setPage'],
         components: {
             NavBar,
             TeamPickBox,
@@ -31,13 +32,23 @@
         data() {
             return {
                 fullTeam: playersFilled,
-                countDone: false
+                countDone: false,
+                waitForImage: "display: none"
             }
         },
         methods: {
             countdownComplete(){
                 this.countDone = true;
+            },
+            imageLoaded(): void {
+                this.waitForImage = "display: block"
+            },
+            gameDone(): void {
+                this.setPage('gameOver');
             }
+        },
+        mounted() {
+            emptyMyPlayers();
         }
     });
 </script>

@@ -18,7 +18,7 @@ def getPlayersRoute():
 @app.route("/gradeTeam", methods=['POST'])
 def gradeTeamRoute():
     stats = request.json['stats']
-    return jsonify(gradeTeam(stats))
+    return jsonify(gradeTeam(stats, 100))
 
 @socketio.on("connect")
 def connected():

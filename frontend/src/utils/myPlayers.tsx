@@ -20,11 +20,19 @@ export const myPlayers2 = ref([
     { pos: 'WR3', name: 'Tyreek Hill', team: 'Kansas City Chiefs' },
     { pos: 'TE', name: 'Travis Kelce', team: 'Kansas City Chiefs' },
     { pos: 'OL', name: 'Detroit Lions', team: 'Detroit Lions' },
-    { pos: 'DEF', name: '', team: '' },
+    { pos: 'DEF', name: 'Chicago Bears', team: 'Chicago Bears' },
 ]);
   
 
 export const playersFilled = ref(false);
+
+export function emptyMyPlayers() {
+    myPlayers.value.forEach((player) => {
+        player.name = '';
+        player.team = '';
+        player.stats = [0];
+    });
+}
 
 export function setPlayer(pos: string, name: string, team: string, stats: number[]) {
     const player = myPlayers.value.find((p) => p.pos === pos);

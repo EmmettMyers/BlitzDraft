@@ -2,15 +2,14 @@ import numpy as np
 from pandas import read_csv
 from matplotlib import pyplot
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
-def gradeTeam(stats):
+def gradeTeam(stats, loops):
     stats = np.array(stats, dtype=np.float)
-
-    NUM_LOOPS = 100
     wins = 0
 
-    for i in range(NUM_LOOPS):
+    for i in range(loops):
         # Load dataset
         url = "data/small_stats.csv"
         small_stats = [ "Wins", 
@@ -34,8 +33,8 @@ def gradeTeam(stats):
         model = LinearDiscriminantAnalysis()
         model.fit(X_train, Y_train)
 
-        """
         # Predicting good vs bad team wins
+        """
         good_team = [67.1,5250,41,12, # Mahomes
                     1538,13,4.4,6, # Henry
                     72.8,1553,11, # Adams
@@ -56,6 +55,6 @@ def gradeTeam(stats):
 
         wins += (model.predict([stats]) / 16) * 17
 
-    wins /= NUM_LOOPS
+    wins /= loops
     wins = round(wins[0])
     return wins

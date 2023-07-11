@@ -65,6 +65,7 @@
     import { projectedRecord } from '@/services/selectedPlayer';
 
     export default defineComponent({
+        props: ['gameDone'],
         components: {
             MyRosterBox
         },
@@ -91,7 +92,7 @@
                                     setTimeout(() => {
                                         this.textPart++;
                                         setTimeout(() => {
-                                            this.textPart++;
+                                            this.gameDone();
                                         }, 4000);
                                     }, 7000);
                                 }, 5000);

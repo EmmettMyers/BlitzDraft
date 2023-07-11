@@ -2,7 +2,7 @@
   <div class="flex justify-center w-screen">
     <div class="navbar flex justify-between z-10">
       <img class="bd-logo mt-1 ml-1" src="../assets/longLogo1.png" />
-      <div class="btn flex justify-center items-center font-semibold mt-3 mr-4">Leave Game</div>
+      <div v-on:click="setPage('home')" class="btn flex justify-center items-center font-semibold mt-3 mr-4">Leave Game</div>
     </div>
   </div>
 </template>
@@ -11,6 +11,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  props: ['setPage']
 });
 </script>
 
