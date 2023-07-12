@@ -11,7 +11,7 @@ export const roomPlayers = ref([{name: "", email: ""}]);
 socket.connect();
 
 export const sendScore = async (score: number) => {
-    socket.emit('sendScore', [room.value, "emmettleemyers@gmail.com", score]);
+    socket.emit('sendScore', [room.value, localStorage.getItem('email'), score]);
 }
 
 export const startGame = async () => {
@@ -19,15 +19,15 @@ export const startGame = async () => {
 }
 
 export const createRoom = async () => {
-    socket.emit('createRoom', ["Emmett Myers", "emmettleemyers@gmail.com"]);
+    socket.emit('createRoom', [localStorage.getItem('username'), localStorage.getItem('email')]);
 }
 
 export const joinRoom = async (roomCode: string) => {
-    socket.emit('joinRoom', [roomCode, "Emmett Myers", "emmettleemyers@gmail.com"]);
+    socket.emit('joinRoom', [roomCode, localStorage.getItem('username'), localStorage.getItem('email')]);
 }
 
 export const leaveRoom = async () => {
-    socket.emit('leaveRoom', [room.value, "emmettleemyers@gmail.com"]);
+    socket.emit('leaveRoom', [room.value, localStorage.getItem('email')]);
     room.value = "";
     roomPlayers.value = [];
 }

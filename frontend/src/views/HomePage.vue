@@ -1,6 +1,6 @@
 <template>
     <div class="w-screen h-screen flex justify-center items-center">
-        <div :style="waitForImage" class="home mb-20">
+        <div :style="waitForImage" class="home mb-10">
             <MultiplayerModal v-if="modalOpen" :closeModal="closeModal" :setPage="setPage" />
             <img @load="imageLoaded" src="../assets/bdLong4.png" />
             <p class="play text-regular mt-8">Play</p>
@@ -13,6 +13,7 @@
                 <div class="teamsBtn font-semibold flex justify-center items-center">Saved Teams</div>
                 <div class="statsBtn font-semibold flex justify-center items-center">Statistics</div>
             </div>
+            <p v-on:click="logout" class="logout float-right font-medium">Log Out</p>
         </div>
     </div>
 </template>
@@ -20,6 +21,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
     import MultiplayerModal from '../components/MultiplayerModal.vue';
+    import { logOut } from '@/services/firebase';
 
     export default defineComponent({
         props: ['setPage'],
@@ -40,6 +42,10 @@
             closeModal(): void {
                 this.modalOpen = false;
             },
+            logout(): void {
+                logOut();
+                this.setPage('login');
+            }
         }
     });
 </script>
@@ -49,6 +55,15 @@
         width: 600px;
         .play  {
             font-size: 30px;
+        }
+        .logout {
+            color: #807e7e;
+            font-size: 20px;
+            &:hover {
+                cursor: pointer;
+                transition: .2s;
+                filter: brightness(120%);
+            }
         }
         .teamsBtn, .statsBtn, .spBtn, .mpBtn {
             &:hover {
