@@ -1,4 +1,5 @@
-import { getTeamModelRecord } from '@/services/modelFetch';
+import { getTeamModelRecord, getTeamTotalScore } from '@/services/modelFetch';
+import { room } from '@/services/roomHandler';
 import { ref } from 'vue';
 
 export const myPlayers = ref([
@@ -50,6 +51,10 @@ const checkIfTeamFilled = () => {
         const allStats: number[] = myPlayers.value.reduce((acc: number[], player: any) => {
             return acc.concat(player.stats);
         }, []);
-        getTeamModelRecord(allStats);
+        if (room.value != ''){
+            getTeamTotalScore(allStats);
+        } else {
+            getTeamModelRecord(allStats);
+        }
     }
 }

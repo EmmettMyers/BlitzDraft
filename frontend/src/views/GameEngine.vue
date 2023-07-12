@@ -4,7 +4,11 @@
         <GameCountdown v-if="!fullTeam && !countDone" :countdownComplete="countdownComplete" />
         <TeamPickBox v-if="!fullTeam && countDone" />
         <MyRosterBox v-if="!fullTeam && countDone" showTxt="true" width="600px" />
-        <EndGame v-if="fullTeam" :gameDone="gameDone" />
+        <WaitingMP v-if="fullTeam && room != '' && scoresReady == false" />
+        <EndGame 
+            v-if="fullTeam && (room == '' || (room != '' && scoresReady == true))" 
+            :gameDone="gameDone" 
+        />
         <div class="imgContainer absolute top-0 left-0">
             <img @load="imageLoaded" class="absolute" src="../assets/lucasOil.jpg" />
         </div>
@@ -16,9 +20,11 @@
     import NavBar from '../components/NavBar.vue';
     import TeamPickBox from '../components/TeamPickBox.vue';
     import MyRosterBox from '../components/MyRosterBox.vue';
+    import WaitingMP from '../components/WaitingMP.vue';
     import GameCountdown from '../components/GameCountdown.vue';
     import EndGame from '../components/EndGame.vue';
     import { emptyMyPlayers, playersFilled } from '@/utils/myPlayers';
+    import { room, scoresReady } from '@/services/roomHandler';
 
     export default defineComponent({
         props: ['setPage'],
@@ -26,6 +32,7 @@
             NavBar,
             TeamPickBox,
             MyRosterBox,
+            WaitingMP,
             EndGame,
             GameCountdown
         },
@@ -33,7 +40,9 @@
             return {
                 fullTeam: playersFilled,
                 countDone: false,
-                waitForImage: "display: none"
+                waitForImage: "display: none",
+                room: room.value,
+                scoresReady: scoresReady.value
             }
         },
         methods: {
@@ -45,7 +54,7 @@
             },
             gameDone(): void {
                 this.setPage('gameOver');
-            }
+            },
         },
         mounted() {
             emptyMyPlayers();

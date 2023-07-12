@@ -2,16 +2,25 @@
   <div class="flex justify-center w-screen">
     <div class="navbar flex justify-between z-10">
       <img class="bd-logo mt-1 ml-1" src="../assets/longLogo1.png" />
-      <div v-on:click="setPage('home')" class="btn flex justify-center items-center font-semibold mt-3 mr-4">Leave Game</div>
+      <div v-on:click="leave" class="btn flex justify-center items-center font-semibold mt-3 mr-4">Leave Game</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { leaveRoom, room } from '@/services/roomHandler';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  props: ['setPage']
+  props: ['setPage'],
+  methods: {
+    leave(): void {
+      if (room.value != ''){
+        leaveRoom();
+      }
+      this.setPage('home');
+    }
+  }
 });
 </script>
 

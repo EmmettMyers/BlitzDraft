@@ -1,11 +1,11 @@
 <template>
     <div 
-        v-on:click="closeModal"
+        v-on:click="handleClose"
         class="shadow bg-black w-screen h-screen z-20 absolute left-0 top-0 opacity-90">
     </div>
     <div :class="join ? 'mt-20' : 'mt-32'" class="multiplayerModal absolute z-30 pb-10">
         <p 
-            v-on:click="closeModal" 
+            v-on:click="handleClose" 
             class="exit text-black font-normal absolute right-5 top-0">
                 x
         </p>
@@ -55,6 +55,10 @@
             };
         },
         methods: {
+            handleClose(): void {
+                roomError.value = false;
+                this.closeModal();
+            },
             setJoin(val: boolean): void {
                 this.join = val;
             },

@@ -23,6 +23,11 @@ def gradeTeamRoute():
     stats = request.json['stats']
     return jsonify(gradeTeam(stats, 100))
 
+@app.route("/gradeTeamMP", methods=['POST'])
+def gradeTeamMPRoute():
+    stats = request.json['stats']
+    return jsonify(gradeTeamMP(stats, 100))
+
 @socketio.on("connect")
 def connectedSocket():
     print("client has connected")
@@ -32,7 +37,7 @@ def createRoomSocket(data):
     room_id = ''.join(random.choices(string.ascii_uppercase, k=6))
     user_name = str(data[0])
     user_email = str(data[1])
-    playingUsers.append([room_id, user_name, user_email, {}, {}, {}, {}, {}, {}, {}, {}])
+    playingUsers.append([room_id, user_name, user_email, 0])
     roomPlayers = []
     for player in playingUsers:
         if player[0] == room_id:
@@ -52,7 +57,7 @@ def joinRoomSocket(data):
     if roomReal:
         user_name = str(data[1])
         user_email = str(data[2])
-        playingUsers.append([room_id, user_name, user_email, {}, {}, {}, {}, {}, {}, {}, {}])
+        playingUsers.append([room_id, user_name, user_email, 0])
         roomPlayers = []
         for player in playingUsers:
             if player[0] == room_id:
@@ -86,6 +91,26 @@ def leaveRoomSocket(data):
         if player[0] == room_id:
             roomPlayers.append({'name': player[1], 'email': player[2]})
     emit("leftRoom", roomPlayers, broadcast = True)
+
+@socketio.on('startGame')
+def startGameSocket(data):
+    room_id = str(data)
+    emit("startGame", room_id, broadcast = True)
+
+@socketio.on('sendScore')
+def sendScoreSocket(data):
+    room_id = str(data[0])
+    user_email = str(data[1])
+    score = float(data[2])
+    for user in playingUsers:
+        if user[2] == user_email:
+            user[3] = score
+            print("score sent: ", user_email)
+            break
+    for user in playingUsers:
+        if user[0] == room_id and user[3] == 0:
+            return
+    emit("allScoresSent", broadcast = True)
 
 @socketio.on("disconnect")
 def disconnectedSocket():
