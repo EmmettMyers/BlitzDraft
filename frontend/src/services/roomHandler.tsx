@@ -1,17 +1,20 @@
 import axios from "axios";
 import { ref } from "vue";
 import socket from "./socket";
+import { myPlayers } from "@/utils/myPlayers";
 
-export const scoresReady = ref(false);
+export const scoresReady = ref(true);
 export const startMPGame = ref(false);
-export const room = ref("");
+export const room = ref("test");
 export const roomError = ref(false);
 export const roomPlayers = ref([{name: "", email: ""}]);
+export const myRank = ref(4);
+export const roomTeamRankings = ref([]);
 
 socket.connect();
 
 export const sendScore = async (score: number) => {
-    socket.emit('sendScore', [room.value, localStorage.getItem('email'), score]);
+    socket.emit('sendScore', [room.value, localStorage.getItem('email'), score, myPlayers]);
 }
 
 export const startGame = async () => {
@@ -33,6 +36,7 @@ export const leaveRoom = async () => {
 }
 
 socket.on('startGame', (data: any) => {
+    roomTeamRankings.value = [];
     const roomId = data;
     if (room.value == roomId){
         startMPGame.value = true;
@@ -70,7 +74,8 @@ socket.on('leftRoom', (data: any) => {
     roomPlayers.value = allPlayers;
 });
 
-socket.on('allScoresSent', () => {
-    alert("all scored")
+socket.on('allScoresSent', (data: any) => {
     scoresReady.value = true;
+    roomTeamRankings.value = data;
+    myRank.value = data.findIndex((person: any[]) => person[1] === localStorage.getItem('username'));
 });

@@ -71,7 +71,7 @@
         },
         data() {
             return {
-                name: "Emmett",
+                name: localStorage.getItem('username') ?? 'user',
                 textPart: 0,
                 projectedRecord: projectedRecord
             };

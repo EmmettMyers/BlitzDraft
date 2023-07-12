@@ -8,8 +8,8 @@
                     <span class="pos">{{ player.pos }}:</span> {{ player.name }}
                 </p>
                 <div class="recordHolder absolute bottom-16 right-8">
-                    <p class="txt text-black text-center font-medium mt-4">Record:</p>
-                    <p class="num text-black text-center font-black">{{ record }}</p>
+                    <p class="txt text-black text-center font-medium mt-4">{{ title }}:</p>
+                    <p class="num text-black text-center font-black">{{ number }}</p>
                 </div>
             </div>
             <div v-on:click="setPage('game')"
@@ -29,6 +29,7 @@
 
 <script lang="ts">
     import { projectedRecord } from '@/services/modelFetch';
+    import { myRank } from '@/services/roomHandler';
     import { myPlayers } from '@/utils/myPlayers';
     import { defineComponent } from 'vue';
 
@@ -38,12 +39,22 @@
             return {
                 waitForImage: "display: none",
                 players: myPlayers,
-                record: projectedRecord
+                title: "",
+                number: ""
             }
         },
         methods: {
             imageLoaded(): void {
                 this.waitForImage = "display: block"
+            }
+        },
+        mounted(){
+            if (projectedRecord.value != ""){
+                this.title = "Record";
+                this.number = projectedRecord.value;
+            } else {
+                this.title = "Ranking";
+                this.number = "#" + myRank.value.toString();
             }
         }
     });

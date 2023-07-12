@@ -37,7 +37,7 @@ def createRoomSocket(data):
     room_id = ''.join(random.choices(string.ascii_uppercase, k=6))
     user_name = str(data[0])
     user_email = str(data[1])
-    playingUsers.append([room_id, user_name, user_email, 0])
+    playingUsers.append([room_id, user_name, user_email, 0, []])
     roomPlayers = []
     for player in playingUsers:
         if player[0] == room_id:
@@ -57,7 +57,7 @@ def joinRoomSocket(data):
     if roomReal:
         user_name = str(data[1])
         user_email = str(data[2])
-        playingUsers.append([room_id, user_name, user_email, 0])
+        playingUsers.append([room_id, user_name, user_email, 0, []])
         roomPlayers = []
         for player in playingUsers:
             if player[0] == room_id:
@@ -102,15 +102,21 @@ def sendScoreSocket(data):
     room_id = str(data[0])
     user_email = str(data[1])
     score = float(data[2])
+    team = data[2]
     for user in playingUsers:
         if user[2] == user_email:
             user[3] = score
-            print("score sent: ", user_email)
+            user[4] = team
+            print("score sent, team set: ", user_email)
             break
+    roomPlayers = []
     for user in playingUsers:
         if user[0] == room_id and user[3] == 0:
             return
-    emit("allScoresSent", broadcast = True)
+        elif user[0] == room_id:
+            roomPlayers.append(user)
+    roomPlayers.sort(key=lambda user: user[3], reverse=True)
+    emit("allScoresSent", roomPlayers, broadcast = True)
 
 @socketio.on("disconnect")
 def disconnectedSocket():

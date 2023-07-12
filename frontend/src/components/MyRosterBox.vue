@@ -19,12 +19,17 @@
         components: {
             MyPlayerBox,
         },
-        props: ['showTxt', 'width'],
+        props: ['MP_Players', 'showTxt', 'width'],
         data() {
             return {
                 players: myPlayers
             };
         },
+        mounted() {
+            if (this.MP_Players){
+                this.players = this.MP_Players;
+            }
+        }
     });
 </script>
 

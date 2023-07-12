@@ -6,7 +6,11 @@
         <MyRosterBox v-if="!fullTeam && countDone" showTxt="true" width="600px" />
         <WaitingMP v-if="fullTeam && room != '' && scoresReady == false" />
         <EndGame 
-            v-if="fullTeam && (room == '' || (room != '' && scoresReady == true))" 
+            v-if="room == '' && fullTeam" 
+            :gameDone="gameDone" 
+        />
+        <EndGameMP 
+            v-if="room != '' && fullTeam && scoresReady == true" 
             :gameDone="gameDone" 
         />
         <div class="imgContainer absolute top-0 left-0">
@@ -23,6 +27,7 @@
     import WaitingMP from '../components/WaitingMP.vue';
     import GameCountdown from '../components/GameCountdown.vue';
     import EndGame from '../components/EndGame.vue';
+    import EndGameMP from '../components/EndGameMP.vue';
     import { emptyMyPlayers, playersFilled } from '@/utils/myPlayers';
     import { room, scoresReady } from '@/services/roomHandler';
 
@@ -34,6 +39,7 @@
             MyRosterBox,
             WaitingMP,
             EndGame,
+            EndGameMP,
             GameCountdown
         },
         data() {
@@ -41,8 +47,8 @@
                 fullTeam: playersFilled,
                 countDone: false,
                 waitForImage: "display: none",
-                room: room.value,
-                scoresReady: scoresReady.value
+                room: room,
+                scoresReady: scoresReady
             }
         },
         methods: {
