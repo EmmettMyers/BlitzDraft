@@ -64,9 +64,11 @@
             },
             async joinRoom(): Promise<void> {
                 await joinRoom(this.roomCode);
-                if (!roomError){
-                    this.setPage('room');
-                }
+                setTimeout(() => {
+                    if (!roomError.value){
+                        this.setPage('room');
+                    }
+                }, 500);
             }
         }
     });

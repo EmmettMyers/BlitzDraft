@@ -63,14 +63,29 @@ def joinRoomSocket(data):
     else:
         emit("invalidRoom", broadcast = True)
 
+@socketio.on('getPlayers')
+def getPlayersSocket(data):
+    room_id = str(data)
+    roomPlayers = []
+    for player in playingUsers:
+        if player[0] == room_id:
+            roomPlayers.append({'name': player[1], 'email': player[2]})
+    print(playingUsers)
+    emit("getPlayers", roomPlayers, broadcast = True)
+
 @socketio.on('leaveRoom')
 def leaveRoomSocket(data):
-    user_email = str(data)
+    room_id = str(data[0])
+    user_email = str(data[1])
     for user in playingUsers:
         if user[2] == user_email:
             playingUsers.remove(user)
             print("user left room: ", user_email)
-    print(playingUsers)
+    roomPlayers = []
+    for player in playingUsers:
+        if player[0] == room_id:
+            roomPlayers.append({'name': player[1], 'email': player[2]})
+    emit("leftRoom", roomPlayers, broadcast = True)
 
 @socketio.on("disconnect")
 def disconnectedSocket():

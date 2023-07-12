@@ -17,7 +17,7 @@ export const joinRoom = async (roomCode: string) => {
 }
 
 export const leaveRoom = async () => {
-    socket.emit('leaveRoom', "emmettleemyers@gmail.com");
+    socket.emit('leaveRoom', [room.value, "emmettleemyers@gmail.com"]);
     room.value = "";
     roomPlayers.value = [];
 }
@@ -37,6 +37,18 @@ socket.on('invalidRoom', () => {
 
 socket.on('joinedRoom', (data: any) => {
     room.value = data.roomId;
-    roomPlayers.value = data.roomPlayers;
+    const allPlayers: any = [];
+    for (const player of data.roomPlayers){
+        allPlayers.push({name: player.name, email: player.email});
+    }
+    roomPlayers.value = allPlayers;
     roomError.value = false;
+});
+
+socket.on('leftRoom', (data: any) => {
+    const allPlayers: any = [];
+    for (const player of data){
+        allPlayers.push({name: player.name, email: player.email});
+    }
+    roomPlayers.value = allPlayers;
 });
