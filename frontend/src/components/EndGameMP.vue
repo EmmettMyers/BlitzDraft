@@ -75,16 +75,16 @@
             <img :style="{display:textPart==8?'block':'none'}" class="robot robotWave" src="../assets/robot.png" />
         </div>
         <div v-if="textPart == 7" class="mt-6">
-            <div v-if="rankPart >= 3" class="robotPause">
+            <div v-if="rankPart >= 3 && rankings[0]" class="robotPause">
                 <RankHolder rank="#1" :player="rankings[0][1]" :team="rankings[0][4]" bgColor="#AB9520" />
             </div>
-            <div v-if="rankPart >= 2" class="robotPause">
+            <div v-if="rankPart >= 2 && rankings[1]" class="robotPause">
                 <RankHolder rank="#2" :player="rankings[1][1]" :team="rankings[1][4]" bgColor="#848484" />
             </div>
-            <div v-if="rankPart >= 1" class="robotPause">
+            <div v-if="rankPart >= 1 && rankings[2]" class="robotPause">
                 <RankHolder rank="#3" :player="rankings[2][1]" :team="rankings[2][4]" bgColor="#A26F3D" />
             </div>
-            <div v-if="rankPart >= 0" class="robotPause">
+            <div v-if="rankPart >= 0 && rankings[3]" class="robotPause">
                 <RankHolder rank="#4" :player="rankings[3][1]" :team="rankings[3][4]" bgColor="#7B1A1A" />
             </div>
         </div>
