@@ -13,15 +13,6 @@ full_teams = ["Arizona Cardinals", "Atlanta Falcons", "Baltimore Ravens", "Buffa
               "Philadelphia Eagles", "Pittsburgh Steelers", "San Francisco 49ers", "Seattle Seahawks", 
               "Tampa Bay Buccaneers", "Tennessee Titans", "Washington Commanders"]
 
-def joinRoom(roomId, email):
-    # create an item in collection storing:
-    # roomId, email, qb, rb, wr1, wr2, wr3, te, ol, d
-    return None
-
-def selectPlayer(player, team):
-    # edit roster data for user and room, change pos to pos of player and add data
-    return None
-
 def getPlayersByTeam(full_team):
     team = teams[full_teams.index(full_team)]
     images = []

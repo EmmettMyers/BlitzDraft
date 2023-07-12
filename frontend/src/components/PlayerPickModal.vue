@@ -45,9 +45,6 @@
     import { defineComponent } from 'vue';
     import PlayerPickModalStats from './/PlayerPickModalStats.vue';
     import { statNames } from '../utils/playerStatNames';
-    import { teamNames } from '@/utils/teamNames';
-    import { postSelectedPlayer } from '@/services/selectedPlayer';
-    import socket from '@/services/socket';
     import { myPlayers, setPlayer } from '@/utils/myPlayers';
     import { setImage } from '@/utils/teamSetters';
 
@@ -71,15 +68,6 @@
         },
         methods: {
             selectPlayer(): void {
-                //postSelectedPlayer(this.player, this.team);
-                /*socket.connect();
-                socket.on('connect', () => {
-                    alert("Connected!");
-                    socket.emit('data', { team: this.team });
-                });
-                socket.on('data', (data: any) => {
-                    alert(data.team);
-                });*/
                 this.startFlipper();
                 setPlayer(this.player.pos, this.player.name, this.team, this.player.stats);
                 this.closeModal();

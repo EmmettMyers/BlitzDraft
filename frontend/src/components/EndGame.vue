@@ -62,7 +62,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
     import MyRosterBox from './/MyRosterBox.vue';
-    import { projectedRecord } from '@/services/selectedPlayer';
+    import { projectedRecord } from '@/services/modelFetch';
 
     export default defineComponent({
         props: ['gameDone'],
@@ -216,4 +216,4 @@
     }
 
 </style>
-  
+  @/services/modelFetch

@@ -60,7 +60,7 @@
     import axios from 'axios';
     import { Player } from '@/types/types';
     import { setImage, setColor } from '@/utils/teamSetters';
-import { myPlayers, setPlayer } from '@/utils/myPlayers';
+    import { myPlayers, setPlayer } from '@/utils/myPlayers';
 
     interface DataProps {
         selectIndex: number;

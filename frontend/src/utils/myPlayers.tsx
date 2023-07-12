@@ -1,4 +1,4 @@
-import { getTeamModelRecord } from '@/services/selectedPlayer';
+import { getTeamModelRecord } from '@/services/modelFetch';
 import { ref } from 'vue';
 
 export const myPlayers = ref([
@@ -12,7 +12,7 @@ export const myPlayers = ref([
     { pos: 'DEF', name: '', team: '', stats: [0] },
 ]);
 
-export const myPlayers2 = ref([
+export const myPlayersFull = ref([
     { pos: 'QB', name: 'Tom Brady', team: 'Tampa Bay Buccaneers' },
     { pos: 'RB', name: 'Derrick Henry', team: 'Tennessee Titans' },
     { pos: 'WR1', name: 'DeAndre Hopkins', team: 'Arizona Cardinals' },
@@ -23,7 +23,6 @@ export const myPlayers2 = ref([
     { pos: 'DEF', name: 'Chicago Bears', team: 'Chicago Bears' },
 ]);
   
-
 export const playersFilled = ref(false);
 
 export function emptyMyPlayers() {

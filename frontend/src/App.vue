@@ -1,18 +1,20 @@
 <template>
   <HomePage v-if="page == 'home'" :setPage="setPage" />
+  <GameRoom v-if="page == 'room'" :setPage="setPage" />
   <GameEngine v-if="page == 'game'" :setPage="setPage" />
   <GameOver v-if="page == 'gameOver'" :setPage="setPage" />
 </template>
 
 <script lang="ts">
   import HomePage from './views/HomePage.vue';
+  import GameRoom from './views/GameRoom.vue';
   import GameEngine from './views/GameEngine.vue';
   import GameOver from './views/GameOver.vue';
   import { defineComponent } from 'vue';
 
   export default defineComponent({
     components: {
-      HomePage, GameEngine, GameOver
+      HomePage, GameRoom, GameEngine, GameOver
     },
     data() {
       return {
@@ -32,5 +34,11 @@
     background: black;
     color: white;
     user-select: none;
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+        outline: none;
+    }
   }
 </style>

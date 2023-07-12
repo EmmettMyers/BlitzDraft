@@ -1,11 +1,12 @@
 <template>
     <div class="w-screen h-screen flex justify-center items-center">
         <div :style="waitForImage" class="home mb-20">
+            <MultiplayerModal v-if="modalOpen" :closeModal="closeModal" :setPage="setPage" />
             <img @load="imageLoaded" src="../assets/bdLong4.png" />
             <p class="play text-regular mt-8">Play</p>
             <div class="flex justify-center">
                 <div v-on:click="setPage('game')" class="spBtn font-semibold flex justify-center items-center">Singleplayer</div>
-                <div class="mpBtn font-semibold flex justify-center items-center">Multiplayer</div>
+                <div v-on:click="openModal" class="mpBtn font-semibold flex justify-center items-center">Multiplayer</div>
             </div>
             <p class="data text-regular mt-2">Data</p>
             <div class="flex justify-center">
@@ -18,18 +19,27 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import MultiplayerModal from '../components/MultiplayerModal.vue';
 
     export default defineComponent({
         props: ['setPage'],
+        components: { MultiplayerModal },
         data() {
             return {
-                waitForImage: "display: none"
+                waitForImage: "display: none",
+                modalOpen: false
             }
         },
         methods: {
             imageLoaded(): void {
                 this.waitForImage = "display: block"
-            }
+            },
+            openModal(): void {
+                this.modalOpen = true;
+            },
+            closeModal(): void {
+                this.modalOpen = false;
+            },
         }
     });
 </script>

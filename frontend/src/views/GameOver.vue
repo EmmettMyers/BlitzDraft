@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-    import { projectedRecord } from '@/services/selectedPlayer';
+    import { projectedRecord } from '@/services/modelFetch';
     import { myPlayers } from '@/utils/myPlayers';
     import { defineComponent } from 'vue';
 
@@ -101,4 +101,4 @@
             }
         }
     }
-</style>
+</style>@/services/modelFetch
