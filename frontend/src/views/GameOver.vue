@@ -12,7 +12,7 @@
                     <p class="num text-black text-center font-black">{{ number }}</p>
                 </div>
             </div>
-            <div v-on:click="setPage('game')"
+            <div v-on:click="restart"
                  class="btn start w-full flex justify-center items-center font-semibold mt-8">
                 Start New Game
             </div>
@@ -28,9 +28,9 @@
 </template>
 
 <script lang="ts">
-    import { projectedRecord } from '@/services/modelFetch';
-    import { myRank } from '@/services/roomHandler';
-    import { myPlayers } from '@/utils/myPlayers';
+    import { projectedRecord, totalScore } from '@/services/modelFetch';
+    import { myRank, roomTeamRankings, scoresReady } from '@/services/roomHandler';
+    import { emptyMyPlayers, myPlayers, playersFilled } from '@/utils/myPlayers';
     import { defineComponent } from 'vue';
 
     export default defineComponent({
@@ -46,6 +46,9 @@
         methods: {
             imageLoaded(): void {
                 this.waitForImage = "display: block"
+            },
+            restart(): void {
+                this.setPage('game');
             }
         },
         mounted(){

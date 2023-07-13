@@ -29,7 +29,8 @@
     import EndGame from '../components/EndGame.vue';
     import EndGameMP from '../components/EndGameMP.vue';
     import { emptyMyPlayers, playersFilled } from '@/utils/myPlayers';
-    import { room, scoresReady } from '@/services/roomHandler';
+    import { myRank, room, roomTeamRankings, scoresReady } from '@/services/roomHandler';
+    import { projectedRecord, totalScore } from '@/services/modelFetch';
 
     export default defineComponent({
         props: ['setPage'],
@@ -64,6 +65,12 @@
         },
         mounted() {
             emptyMyPlayers();
+            playersFilled.value = false;
+            projectedRecord.value = "";
+            totalScore.value = 0;
+            myRank.value = 0;
+            scoresReady.value = false;
+            roomTeamRankings.value = [];
         }
     });
 </script>

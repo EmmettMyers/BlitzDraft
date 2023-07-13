@@ -6,4 +6,4 @@ def clearUsers():
     playingUsers.clear()
     print(playingUsers)
 
-clearUsers()
+#clearUsers()

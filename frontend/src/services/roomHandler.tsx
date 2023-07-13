@@ -3,12 +3,12 @@ import { ref } from "vue";
 import socket from "./socket";
 import { myPlayers } from "@/utils/myPlayers";
 
-export const scoresReady = ref(true);
+export const scoresReady = ref(false);
 export const startMPGame = ref(false);
-export const room = ref("test");
+export const room = ref("");
 export const roomError = ref(false);
 export const roomPlayers = ref([{name: "", email: ""}]);
-export const myRank = ref(4);
+export const myRank = ref(0);
 export const roomTeamRankings = ref([]);
 
 socket.connect();
