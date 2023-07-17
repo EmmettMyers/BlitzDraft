@@ -54,10 +54,13 @@
         .name {
             width: 500px;
             border-radius: 0 13px 13px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         img {
             height: 35px;
         }
     }
 </style>
-  
+  @/utils/styleSetters

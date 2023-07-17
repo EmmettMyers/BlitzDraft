@@ -31,6 +31,8 @@
     import { emptyMyPlayers, playersFilled } from '@/utils/myPlayers';
     import { myRank, room, roomTeamRankings, scoresReady } from '@/services/roomHandler';
     import { projectedRecord, totalScore } from '@/services/modelFetch';
+    import { pickNumber } from '@/services/statistics';
+    import { resetMetrics } from '@/utils/reset';
 
     export default defineComponent({
         props: ['setPage'],
@@ -64,13 +66,7 @@
             },
         },
         mounted() {
-            emptyMyPlayers();
-            playersFilled.value = false;
-            projectedRecord.value = "";
-            totalScore.value = 0;
-            myRank.value = 0;
-            scoresReady.value = false;
-            roomTeamRankings.value = [];
+            resetMetrics();
         }
     });
 </script>

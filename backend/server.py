@@ -6,12 +6,56 @@ from flask_socketio import SocketIO,emit
 from flask_cors import CORS
 from players import *
 from model import *
-from rooms import *
+from storedVars import *
+from savedTeams import *
+from statistics import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 CORS(app,resources={r"/*":{"origins":"*"}})
 socketio = SocketIO(app,cors_allowed_origins="*")
+
+@app.route("/statRecord", methods=['POST'])
+def statRecordRoute():
+    email = request.json['email']
+    wins = request.json['wins']
+    return jsonify(statRecord(email, wins))
+
+@app.route("/statRank", methods=['POST'])
+def statRankRoute():
+    email = request.json['email']
+    rank = request.json['rank']
+    return jsonify(statRank(email, rank))
+
+@app.route("/statDraftPick", methods=['POST'])
+def statDraftPickRoute():
+    email = request.json['email']
+    name = request.json['name']
+    pos = request.json['position']
+    team = request.json['team']
+    pick = request.json['pickNumber']
+    return jsonify(statDraftPick(email, name, pos, team, pick))
+
+@app.route("/saveTeam", methods=['POST'])
+def saveTeamRoute():
+    email = request.json['email']
+    username = request.json['username']
+    teamName = request.json['teamName']
+    date = request.json['date']
+    record = request.json['record']
+    team = request.json['team']
+    return jsonify(saveTeam(email, username, teamName, date, record, team))
+
+@app.route("/getSavedTeams", methods=['POST'])
+def getSavedTeamsRoute():
+    email = request.json['userEmail']
+    return jsonify(getTeams(email))
+
+@app.route("/deleteSavedTeam", methods=['POST'])
+def deleteSavedTeamRoute():
+    email = request.json['userEmail']
+    teamName = request.json['teamName']
+    return jsonify(deleteTeam(email, teamName))
 
 @app.route("/getPlayers", methods=['POST'])
 def getPlayersRoute():
@@ -86,6 +130,7 @@ def leaveRoomSocket(data):
         if user[2] == user_email:
             playingUsers.remove(user)
             print("user left room: ", user_email)
+            print(playingUsers)
     roomPlayers = []
     for player in playingUsers:
         if player[0] == room_id:

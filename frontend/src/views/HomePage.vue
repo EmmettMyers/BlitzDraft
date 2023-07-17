@@ -1,17 +1,33 @@
 <template>
     <div class="w-screen h-screen flex justify-center items-center">
-        <div :style="waitForImage" class="home mb-10">
+        <div :style="waitForImage" class="home mb-5">
             <MultiplayerModal v-if="modalOpen" :closeModal="closeModal" :setPage="setPage" />
             <img @load="imageLoaded" src="../assets/bdLong4.png" />
             <p class="play text-regular mt-8">Play</p>
             <div class="flex justify-center">
-                <div v-on:click="setPage('game')" class="spBtn font-semibold flex justify-center items-center">Singleplayer</div>
-                <div v-on:click="openModal" class="mpBtn font-semibold flex justify-center items-center">Multiplayer</div>
+                <div 
+                    v-on:click="setPage('game')" 
+                    class="spBtn font-semibold flex justify-center items-center">
+                        Singleplayer
+                </div>
+                <div 
+                    v-on:click="openModal" 
+                    class="mpBtn font-semibold flex justify-center items-center">
+                        Multiplayer
+                </div>
             </div>
             <p class="data text-regular mt-2">Data</p>
             <div class="flex justify-center">
-                <div class="teamsBtn font-semibold flex justify-center items-center">Saved Teams</div>
-                <div class="statsBtn font-semibold flex justify-center items-center">Statistics</div>
+                <div 
+                    v-on:click="setPage('teams')" 
+                    class="teamsBtn font-semibold flex justify-center items-center">
+                        Saved Teams
+                </div>
+                <div 
+                    v-on:click="setPage('stats')" 
+                    class="statsBtn font-semibold flex justify-center items-center">
+                        Statistics
+                </div>
             </div>
             <p v-on:click="logout" class="logout float-right font-medium">Log Out</p>
         </div>
@@ -22,6 +38,11 @@
     import { defineComponent } from 'vue';
     import MultiplayerModal from '../components/MultiplayerModal.vue';
     import { logOut } from '@/services/firebase';
+    import { emptyMyPlayers, playersFilled } from '@/utils/myPlayers';
+    import { projectedRecord, totalScore } from '@/services/modelFetch';
+    import { myRank, roomTeamRankings, scoresReady } from '@/services/roomHandler';
+    import { pickNumber } from '@/services/statistics';
+    import { resetMetrics } from '@/utils/reset';
 
     export default defineComponent({
         props: ['setPage'],
@@ -46,6 +67,9 @@
                 logOut();
                 this.setPage('login');
             }
+        },
+        mounted() {
+            resetMetrics();
         }
     });
 </script>

@@ -47,6 +47,7 @@
     import { statNames } from '../utils/playerStatNames';
     import { myPlayers, setPlayer } from '@/utils/myPlayers';
     import { setImage } from '@/utils/teamSetters';
+    import { postDraftPick } from '@/services/statistics';
 
     interface DataProps {
         statNames: string[];
@@ -71,6 +72,7 @@
                 this.startFlipper();
                 setPlayer(this.player.pos, this.player.name, this.team, this.player.stats);
                 this.closeModal();
+                postDraftPick(this.player, this.team);
             },
             imageLoaded(): void {
                 this.waitForImage = "display: block"
@@ -138,4 +140,4 @@
         }
     }
 </style>
-  
+  @/utils/styleSetters
