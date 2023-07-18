@@ -33,15 +33,7 @@ def gradeTeamMP(stats, loops):
     for i in range(loops):
         # Load dataset
         url = "data/small_stats.csv"
-        small_stats = [ "Wins", 
-                        "QB:Comp%", "QB:Pass Yds", "QB:Pass TD", "QB:Int",
-                        "RB:Rush Yds", "RB:Rush TD", "RB:Yds/rush", "RB:Fumbles",
-                        "WR1:Catch%", "WR1:Rec Yds", "WR1:Rec TD",
-                        "WR2:Catch%", "WR2:Rec Yds", "WR2:Rec TD",
-                        "WR3:Catch%", "WR3:Rec Yds", "WR3:Rec TD",
-                        "TE:Catch%", "TE:Rec Yds", "TE:Rec TD",
-                        "OL:Sacked", "OL:Sacked/g", "OL:Yds/rush",
-                        "DL:Sacks", "LB:Points", "LB:Yds/play", "DB:Turnover%" ]
+        small_stats = [ { also something very cool & fancy } ]
         dataset = read_csv(url, names=small_stats)
         # Split-out validation dataset
         array = dataset.values
