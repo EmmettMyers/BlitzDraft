@@ -11,15 +11,7 @@ def gradeTeam(stats, loops):
     for i in range(loops):
         # Load dataset
         url = "data/small_stats.csv"
-        small_stats = [ "Wins", 
-                        "QB:Comp%", "QB:Pass Yds", "QB:Pass TD", "QB:Int",
-                        "RB:Rush Yds", "RB:Rush TD", "RB:Yds/rush", "RB:Fumbles",
-                        "WR1:Catch%", "WR1:Rec Yds", "WR1:Rec TD",
-                        "WR2:Catch%", "WR2:Rec Yds", "WR2:Rec TD",
-                        "WR3:Catch%", "WR3:Rec Yds", "WR3:Rec TD",
-                        "TE:Catch%", "TE:Rec Yds", "TE:Rec TD",
-                        "OL:Sacked", "OL:Sacked/g", "OL:Yds/rush",
-                        "DL:Sacks", "LB:Points", "LB:Yds/play", "DB:Turnover%" ]
+        small_stats = [ { something super fancy & cool } ]
         dataset = read_csv(url, names=small_stats)
         # Split-out validation dataset
         array = dataset.values
@@ -29,25 +21,7 @@ def gradeTeam(stats, loops):
         # Fit model to linear discriminant analysis
         model = LinearDiscriminantAnalysis()
         model.fit(X_train, Y_train)
-        # Predicting good vs bad team wins
-        """
-        good_team = [67.1,5250,41,12, # Mahomes
-                    1538,13,4.4,6, # Henry
-                    72.8,1553,11, # Adams
-                    70.0,1710,7, # Hill
-                    70.1,1429,11, # Diggs
-                    69.9,1361,9, # Andrews
-                    25,6.2,4.0, # Saints OL
-                    44,277,5.0,15.3] # 49ers D
-        bad_team = [60.4,2242,17,11, # Fields
-                    891,3,4.9,1, # Mostert
-                    58.7,829,2, # Sutton
-                    51.9,687,2, # Peoples-Jones
-                    69.8,804,6, # Meyers
-                    66.1,406,4, # Ertz
-                    55,14.7,4.0, # Bears OL
-                    39,420,5.7,11.9] # Texans D
-        """
+        # Predicting wins based on model
         wins += (model.predict([stats]) / 16) * 17
     wins /= loops
     wins = round(wins[0])
