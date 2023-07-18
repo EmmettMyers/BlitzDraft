@@ -20,6 +20,9 @@
 <p>The model is trained by comparing a team's player stats and their win total. This allows it to understand what statistics contribute most to wins and enables great record projections for fantasy rosters.</p>
 <br/>
 <b>The main game features include:</b>
+<ul>
+  <li>Singleplayer mode</li>
+</ul>
 - Singleplayer mode
  - Multiplayer mode (up to 4 players)
  - Saved teams storage
