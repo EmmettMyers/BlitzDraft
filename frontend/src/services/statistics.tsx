@@ -11,7 +11,17 @@ export const mostDraftedPlayers = ref("");
 export const mostRolledTeams = ref("");
 export const leastRolledTeams = ref("");
 
+export const getStats = async () => {
+    const email = localStorage.getItem('email');
+    const post = await axios.post('http://localhost:5001/getStats', { email: email });
+}
+
 export const postDraftPick = async (player: any, team: string) => {
+    if (player.pos == "OL"){
+        player.name = player.name.concat(" OL");
+    } else if (player.pos == "DEF"){
+        player.name = player.name.concat(" DEF");
+    }
     pickNumber.value += 1;
     const email = localStorage.getItem('email');
     const post = await axios.post('http://localhost:5001/statDraftPick', 

@@ -27,8 +27,16 @@
                     <div class="recordBox flex justify-center items-center font-bold">2</div>
                 </div>
             </div>
-            <p class="recordTxt font-normal mt-1">Record Distribution</p>
-            <div class="recordDist"></div>
+            <div class="flex justify-between mt-1">
+                <div>
+                    <p class="recordTxt font-normal">Record Distribution</p>
+                    <div class="recordDist"></div>
+                </div>
+                <div>
+                    <p class="recordTxt font-normal">Rank Distribution</p>
+                    <div class="rankDist"></div>
+                </div>
+            </div>
             <div class="flex justify-between mt-1">
                 <div>
                     <p class="draftTxt font-normal">Most Drafted Players</p>
@@ -48,7 +56,7 @@
                 </div>
             </div>
             <p class="recordTxt font-normal mt-1">ADP by Player Position</p>
-            <div class="recordDist"></div>
+            <div class="adpBox"></div>
         </div>
     </div>
 </template>
@@ -98,6 +106,18 @@
             font-size: 18px;
         }
         .recordDist {
+            width: 400px;
+            height: 120px;
+            background: white;
+            border-radius: 13px;
+        }
+        .rankDist {
+            width: 190px;
+            height: 120px;
+            background: white;
+            border-radius: 13px;
+        }
+        .adpBox {
             width: 600px;
             height: 120px;
             background: white;

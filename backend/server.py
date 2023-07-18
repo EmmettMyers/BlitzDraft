@@ -15,6 +15,11 @@ app.config['SECRET_KEY'] = secrets.token_hex(16)
 CORS(app,resources={r"/*":{"origins":"*"}})
 socketio = SocketIO(app,cors_allowed_origins="*")
 
+@app.route("/getStats", methods=['POST'])
+def getStatsRoute():
+    email = request.json['email']
+    return jsonify(getStats(email))
+
 @app.route("/statRecord", methods=['POST'])
 def statRecordRoute():
     email = request.json['email']

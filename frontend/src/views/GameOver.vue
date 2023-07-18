@@ -159,6 +159,10 @@
             .player {
                 font-size: 20px;
                 line-height: 25px;
+                width: 300px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 .pos {
                     font-weight: 400 !important;
                     color: #bababa;
