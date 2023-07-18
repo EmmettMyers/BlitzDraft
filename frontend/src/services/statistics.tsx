@@ -22,7 +22,7 @@ export const getStats = async () => {
         avgRecord.value = stats.avgRec;
     if (stats.highRec != 0)
         highRecord.value = stats.highRec;
-    if (stats.lowRec != 0)
+    if (stats.lowRec != 17)
         lowRecord.value = stats.lowRec;
     if (stats.avgRank != 0)
         avgRank.value = "#" + stats.avgRank;
@@ -36,9 +36,9 @@ export const getStats = async () => {
 
 export const postDraftPick = async (player: any, team: string) => {
     if (player.pos == "OL"){
-        player.name = player.name.concat(" OL");
+        player.name = player.name.trim().split(' ').pop().concat(" OL");
     } else if (player.pos == "DEF"){
-        player.name = player.name.concat(" DEF");
+        player.name = player.name.trim().split(' ').pop().concat(" DEF");
     }
     pickNumber.value += 1;
     const email = localStorage.getItem('email');

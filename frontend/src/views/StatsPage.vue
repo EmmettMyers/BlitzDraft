@@ -112,9 +112,11 @@
                 this.waitForImage = "display: block";
             },
             formatRecords(): void {
-                this.avgRecord = this.avgRecord + "-" + (17 - Number(this.avgRecord));
-                this.highRecord = this.highRecord + "-" + (17 - Number(this.highRecord));
-                this.lowRecord = this.lowRecord + "-" + (17 - Number(this.lowRecord));
+                if (this.avgRecord != "N/A"){
+                    this.avgRecord = this.avgRecord + "-" + (17 - Number(this.avgRecord));
+                    this.highRecord = this.highRecord + "-" + (17 - Number(this.highRecord));
+                    this.lowRecord = this.lowRecord + "-" + (17 - Number(this.lowRecord));
+                }
             }
         },
         async mounted() {

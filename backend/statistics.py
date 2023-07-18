@@ -40,7 +40,8 @@ def getStats(email):
             totalStats['avgRec'] += wins
             totalStats['allRecords'].append(wins)
     totalStats['allRecords'] = countOccurrences(totalStats['allRecords'])
-    totalStats['avgRec'] = round(totalStats['avgRec']/userRecords)
+    if (userRecords > 0):
+        totalStats['avgRec'] = round(totalStats['avgRec']/userRecords)
     # getting rank stats
     ranks = db["rankStats"]
     userRanks = 0
@@ -50,7 +51,8 @@ def getStats(email):
             gameRank = rank['rank']
             totalStats['avgRank'] += gameRank
             totalStats['allRanks'].append(gameRank)
-    totalStats['avgRank'] = round(totalStats['avgRank']/userRanks)
+    if (userRanks > 0):
+        totalStats['avgRank'] = round(totalStats['avgRank']/userRanks)
     # getting pick stats
     players = {}
     teams = {}
@@ -81,8 +83,9 @@ def getStats(email):
     bottom_2_teams = team_counter.most_common()[:-3:-1]
     totalStats['highTeams'] = [team for team, occurrences in top_2_teams]
     totalStats['lowTeams'] = [team for team, occurrences in bottom_2_teams]
-    for pos in posADP:
-        posADP[pos] = posADP[pos] / (totalPicks / (totalPicks / userRecords))
+    if userRecords > 0:
+        for pos in posADP:
+            posADP[pos] = posADP[pos] / (totalPicks / (totalPicks / userRecords))
     totalStats['posADP'] = list(posADP.values())
     return totalStats
 
