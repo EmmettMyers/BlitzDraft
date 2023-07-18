@@ -22,18 +22,19 @@
 <b>The main game features include:</b>
 <ul>
   <li>Singleplayer mode</li>
+  <li>Multiplayer mode (up to 4 players)</li>
+  <li>Saved teams storage</li>
+  <li>Draft statistics</li>
+  <li>Google authenticated login</li>
+  <li>Snappy, a dynamic animated game assistant</li>
 </ul>
-- Singleplayer mode
- - Multiplayer mode (up to 4 players)
- - Saved teams storage
- - Draft statistics
- - Google authenticated login
- - Snappy, a dynamic animated game assistant
 <br/>
 <b>Tools used:</b>
- - TypeScript - Vue
- - Python - Flask
- - HTML/CSS - Tailwind, Sass
- - MongoDB, Firebase
- - Pandas, Scikit, BeautifulSoup
- - Socket.io, Chart.js
+<ul>
+  <li>TypeScript - Vue</li>
+  <li>Python - Flask</li>
+  <li>HTML/CSS - Tailwind, Sass</li>
+  <li>MongoDB, Firebase</li>
+  <li>Pandas, Scikit, BeautifulSoup</li>
+  <li>Socket.io, Chart.js</li>
+</ul>
