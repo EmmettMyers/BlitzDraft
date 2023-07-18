@@ -1,6 +1,6 @@
 <template>
     <div class="w-screen h-screen flex justify-center items-center">
-        <div :style="waitForImage" class="savedTeams mb-10">
+        <div :style="waitForImage" class="savedTeams mt-2">
             <SavedTeamModal v-if="modalOpen" :teamInfo="team" :closeModal="closeModal" :setPage="setPage" />
             <img @load="imageLoaded" src="../assets/bdTeams.png" />
             <div class="flex justify-center font-medium mt-3">
@@ -18,12 +18,14 @@
             </div>
             <p v-if="deleting" class="deleteTxt italic font-light mt-3">Click a team to delete it.</p>
             <p :class="deleting ? 'mt-2' : 'mt-5'" class="teamsTxt text-regular">Saved teams</p>
-            <div :style="waitForTeams" v-for="team in teams" :key="team.teamName">
-                <div 
-                    v-on:click="handleTeamClick(team)"
-                    :class="{'redShade' : deleting}"
-                    class="team font-bold flex justify-center items-center mt-2">
-                        {{ team.teamName }}
+            <div :style="waitForTeams" class="teams">
+                <div :style="waitForTeams" v-for="team in teams" :key="team.teamName">
+                    <div 
+                        v-on:click="handleTeamClick(team)"
+                        :class="{'redShade' : deleting}"
+                        class="team font-bold flex justify-center items-center mt-2">
+                            {{ team.teamName }}
+                    </div>
                 </div>
             </div>
             <div class="flex justify-center">
@@ -84,6 +86,10 @@
 <style lang="scss" scoped>
     .savedTeams {
         width: 500px;
+        .teams {
+            height: 350px;
+            overflow-y: scroll;
+        }
         .deleteTxt {
             font-size: 30px;
             color: #EE697D;
@@ -124,7 +130,7 @@
             font-size: 30px;
             border-radius: 13px;
             padding-bottom: 3px;
-            width: 500px;
+            width: 480px;
             background: #174FBF;
             white-space: nowrap;
             overflow: hidden;
@@ -168,6 +174,21 @@
         @keyframes lds-ring {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: white;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: grey;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        ::-webkit-scrollbar-corner {
+            background-color: transparent;
         }
     }
 </style>
