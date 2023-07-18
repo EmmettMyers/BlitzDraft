@@ -1,6 +1,6 @@
 # BlitzDraft
 
-<i>Created: Summer 2023 (Incoming College Sophomore)</i>
+[Live Demo](https://drive.google.com/file/d/1X9OeuzdiSbPODgQcTKTXXR1pL1DuHjRb/view)&nbsp;&nbsp;|&nbsp;&nbsp;<i>Created: Summer 2023 (Incoming College Sophomore)</i>
 
 <div>
   <img src="frontend/src/assets/bd1.png" style="width: 350px" />
