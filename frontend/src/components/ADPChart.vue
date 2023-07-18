@@ -11,16 +11,16 @@
 </template>
 
 <script lang="ts">
-    import { Bar } from 'vue-chartjs'
-    import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+    import { Bar } from 'vue-chartjs';
+    import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+    import { defineComponent } from 'vue';
 
     ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-    export default {
-        name: 'BarChart',
+    export default defineComponent({
         props: ['values'],
         components: { Bar },
-        data() {
+        data(): any {
             return {
                 data: {
                     labels: ['QB', 'RB', 'WR1', 'WR2', 'WR3', 'TE', 'OL', 'DEF'],
@@ -58,7 +58,7 @@
                 }
             }
         }
-    }
+    });
 </script>
 
 <style lang="scss" scoped>

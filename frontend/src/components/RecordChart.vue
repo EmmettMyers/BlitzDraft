@@ -13,15 +13,14 @@
 <script lang="ts">
     import { Bar } from 'vue-chartjs'
     import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
-    import { allRecords } from '@/services/statistics'
+    import { defineComponent } from 'vue';
 
     ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-    export default {
-        name: 'BarChart',
+    export default defineComponent({
         props: ['records'],
         components: { Bar },
-        data() {
+        data(): any {
             return {
                 data: {
                     labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'],
@@ -58,7 +57,7 @@
                 }
             }
         }
-    }
+    });
 </script>
 
 <style lang="scss" scoped>
