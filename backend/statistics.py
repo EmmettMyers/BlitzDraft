@@ -6,6 +6,13 @@ uri = "mongodb+srv://emmettmyers:dbCS8045@cluster0.bnt1l57.mongodb.net/?retryWri
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client["BlitzDraft"]
 
+def countOccurrences(arr):
+    occurrences = [0] * 18 
+    for num in arr:
+        if 0 <= num <= 17:
+            occurrences[num] += 1
+    return occurrences
+
 def getStats(email):
     totalStats = {
         "avgRec": 0,
@@ -32,6 +39,7 @@ def getStats(email):
                 totalStats['lowRec'] = wins
             totalStats['avgRec'] += wins
             totalStats['allRecords'].append(wins)
+    totalStats['allRecords'] = countOccurrences(totalStats['allRecords'])
     totalStats['avgRec'] = round(totalStats['avgRec']/userRecords)
     # getting rank stats
     ranks = db["rankStats"]
@@ -53,10 +61,11 @@ def getStats(email):
         if pick['email'] == email:
             totalPicks += 1
             playerName = pick['name']
+            playerTeam = pick['team']
             if playerName in players:
-                players[playerName] += 1
+                players[playerName][1] += 1
             else:
-                players[playerName] = 1
+                players[playerName] = [playerTeam, 1]
             team = pick['team']
             if team in teams:
                 teams[team] += 1
@@ -65,17 +74,16 @@ def getStats(email):
             pos = pick['position']
             numPick = pick['pickNumber']
             posADP[pos] += numPick
-    name_counter = Counter(players)
-    top_5_players = name_counter.most_common(5)
-    totalStats['highPlayers'] = [name for name, occurrences in top_5_players]
+    sorted_players = sorted(players.items(), key=lambda item: item[1][1], reverse=True)
+    totalStats['highPlayers'] = sorted_players[:5]
     team_counter = Counter(teams)
     top_2_teams = team_counter.most_common(2)
     bottom_2_teams = team_counter.most_common()[:-3:-1]
     totalStats['highTeams'] = [team for team, occurrences in top_2_teams]
     totalStats['lowTeams'] = [team for team, occurrences in bottom_2_teams]
     for pos in posADP:
-        posADP[pos] = posADP[pos] / (totalPicks / 8)
-    totalStats['posADP'] = posADP
+        posADP[pos] = posADP[pos] / (totalPicks / (totalPicks / userRecords))
+    totalStats['posADP'] = list(posADP.values())
     return totalStats
 
 print(getStats('emmettleemyers@gmail.com'))

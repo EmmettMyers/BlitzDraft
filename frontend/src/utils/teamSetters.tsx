@@ -2,7 +2,7 @@ import { teamColors } from "@/styles/team_colors";
 import { teamNames } from "./teamNames";
 
 export const setColor = (type: string, team: string): string => {
-    if (team == ''){
+    if (team == '' || !team){
         return "#414141"
     }
     const fullTeam: string[] = team.split(' ');
