@@ -18,7 +18,7 @@
 <b>BlitzDraft is a multiplayer mobile web game where users pick one NFL player at time from random teams to assemble the best team possible.</b>
 <p></p>
 <p>It grades the strength of each team using a machine learning model trained from over 50,000 NFL statistics, scraped from Pro-Football-Reference.</p>
-<p>The model is trained by comparing a team's player stats and their win total. This allows it to understand what statistics contribute most to wins and enables great record projections for fantasy rosters.</p>
+<p>The model is trained by comparing a team's player stats and their win total. This allows it to understand what statistics contribute most to wins and enables great record projections for fantasy rosters.</p> 
 <b>The main game features include:</b>
 <ul>
   <li>Singleplayer mode</li>
