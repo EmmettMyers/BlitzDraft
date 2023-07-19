@@ -9,8 +9,8 @@ export const saveTeam = async (teamName: string) => {
     const name = localStorage.getItem('username');
     const email = localStorage.getItem('email');
     const currentDate = new Date();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1 and pad with leading zeros if necessary.
-    const day = String(currentDate.getDate()).padStart(2, '0'); // Pad the day with leading zeros if necessary.
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
     const year = String(currentDate.getFullYear());
     const formattedDate = `${month}/${day}/${year}`;
     const post = await axios.post('http://localhost:5001/saveTeam', 
