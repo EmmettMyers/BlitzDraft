@@ -3,13 +3,13 @@ import { initializeApp } from 'firebase/app';
 import { ref } from "vue";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDOiajHNEs808LK2IzDi5pUu1z5m8nTUXE",
-    authDomain: "blitzdraft-10230.firebaseapp.com",
-    projectId: "blitzdraft-10230",
-    storageBucket: "blitzdraft-10230.appspot.com",
-    messagingSenderId: "237050519023",
-    appId: "1:237050519023:web:35ed944f39e31f39baaa1a",
-    measurementId: "G-D0V6W3FNGL"
+    apiKey: { HIDDEN },
+    authDomain: { HIDDEN },
+    projectId: { HIDDEN },
+    storageBucket: { HIDDEN },
+    messagingSenderId: { HIDDEN },
+    appId: { HIDDEN },
+    measurementId: { HIDDEN }
 };
 
 export const loggedIn = ref(false);
